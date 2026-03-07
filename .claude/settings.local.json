@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -s --max-time 3 http://localhost:8000/health 2>&1; echo \"EXIT:$?\")",
+      "Bash(cd \"/mnt/c/Users/mdama/OneDrive/Desktop/hack2/khidmati-ai\" && python3 -c \"import fastapi\" 2>&1; pip3 list 2>&1 | grep -iE \"fastapi|uvicorn|httpx|pydantic|python-multipart\")",
+      "Bash(VENV=\"/mnt/c/Users/mdama/OneDrive/Desktop/hack2/khidmati-ai/venv_py11\" && \"$VENV/Scripts/python.exe\" -c \"import fastapi; print\\('fastapi OK'\\)\" 2>&1 || \"$VENV/bin/python\" -c \"import fastapi; print\\('fastapi OK'\\)\" 2>&1)",
+      "Bash(cd \"/mnt/c/Users/mdama/OneDrive/Desktop/hack2/khidmati-ai/backend\" && pip install fastapi uvicorn[standard] python-multipart pydantic httpx python-dotenv 2>&1 | tail -5)",
+      "Bash(cd \"/mnt/c/Users/mdama/OneDrive/Desktop/hack2/khidmati-ai/backend\" && pip install fastapi uvicorn[standard] python-multipart pydantic httpx python-dotenv --break-system-packages 2>&1 | tail -5)",
+      "Bash(cd \"/mnt/c/Users/mdama/OneDrive/Desktop/hack2/khidmati-ai/backend\" && python3 -c \"import fastapi, uvicorn, httpx; print\\('OK'\\)\")",
+      "Bash(cd \"/mnt/c/Users/mdama/OneDrive/Desktop/hack2/khidmati-ai/backend\" && python3 -c \"from main import app; print\\('Backend imports OK'\\)\" 2>&1)",
+      "Bash(python3 -c \"print\\('Tour 1: لنجدد البطاقة الوطنية، لازم تكون عندك البطاقة القديمة. هل عندك البطاقة القديمة؟'\\); print\\('Tour 2: بالتوالي، لازم تذهب إلى مكتب الأنترنيت أو إلى مركز إدارة السكان. هل عندك تفضيل لمكان معين؟'\\)\")",
+      "Bash(cd \"/mnt/c/Users/mdama/OneDrive/Desktop/hack2/khidmati-ai/backend\" && python3 -c \"\nfrom config import OPENAI_API_KEY, HF_API_TOKEN, MISTRAL_API_KEY\nprint\\('OPENAI_API_KEY:', repr\\(OPENAI_API_KEY[:8]\\) if OPENAI_API_KEY else 'VIDE'\\)\nprint\\('HF_API_TOKEN:', repr\\(HF_API_TOKEN[:8]\\) if HF_API_TOKEN else 'VIDE'\\)\nprint\\('MISTRAL_API_KEY:', repr\\(MISTRAL_API_KEY[:8]\\) if MISTRAL_API_KEY else 'VIDE'\\)\n\")",
+      "Bash(cd \"/mnt/c/Users/mdama/OneDrive/Desktop/hack2/khidmati-ai/frontend\" && node -e \"\nconst fs = require\\('fs'\\);\nconst code = fs.readFileSync\\('src/App.jsx', 'utf8'\\);\n// Vérifier les balises JSX ouvertes/fermées basiquement\nconst opens = \\(code.match\\(/<div/g\\) || []\\).length;\nconst closes = \\(code.match\\(/<\\\\/div>/g\\) || []\\).length;\nconsole.log\\('div opens:', opens, '| div closes:', closes, '| balanced:', opens === closes\\);\n// Vérifier les imports\nconst hasPlus = code.includes\\('Plus'\\);\nconst hasSpeechRecognition = code.includes\\('SpeechRecognition'\\);\nconsole.log\\('Plus icon imported:', hasPlus\\);\nconsole.log\\('SpeechRecognition:', hasSpeechRecognition\\);\nconsole.log\\('toBackendHistory removed:', !code.includes\\('toBackendHistory'\\)\\);\nconsole.log\\('history in payload removed:', !code.includes\\('history: toBackendHistory'\\)\\);\n\")",
+      "Bash(cd \"/mnt/c/Users/mdama/OneDrive/Desktop/hack2/khidmati-ai/frontend\" && node -e \"\nvar fs = require\\('fs'\\);\nvar code = fs.readFileSync\\('src/App.jsx', 'utf8'\\);\nvar opens = \\(code.match\\(/<div/g\\) || []\\).length;\nvar closes = \\(code.match\\(/<\\\\/div>/g\\) || []\\).length;\nconsole.log\\('div opens:', opens, '| closes:', closes, '| ok:', opens === closes\\);\nconsole.log\\('SpeechRecognition:', code.includes\\('SpeechRecognition'\\)\\);\nconsole.log\\('history payload removed:', code.indexOf\\('history: toBackendHistory'\\) === -1\\);\nconsole.log\\('startNewChat:', code.includes\\('startNewChat'\\)\\);\n\")",
+      "Bash(cd /mnt/c/Users/mdama/OneDrive/Desktop/hack2/khidmati-ai/backend && pip install playwright --break-system-packages -q 2>&1 | tail -5)",
+      "Bash(pip install playwright --break-system-packages --timeout 60 -q 2>&1 | tail -5)",
+      "Bash(/home/einar/.local/bin/playwright install chromium 2>&1 | tail -5)",
+      "Bash(python -c \"from routers import watiqati; from services.watiqati_service import extract_document_request, submit_to_watiqati; print\\('OK'\\)\")",
+      "Bash(python3 -c \"from routers import watiqati; from services.watiqati_service import extract_document_request, submit_to_watiqati; print\\('OK'\\)\")",
+      "Bash(python3 -c \"from gtts import gTTS; print\\('gTTS OK'\\)\" 2>&1)",
+      "Bash(pip install gtts --break-system-packages -q 2>&1 | tail -3)",
+      "Bash(python3 -c \"from gtts import gTTS; print\\('gTTS OK'\\)\")",
+      "Bash(python3 -c \"\nfrom services.tts_service import text_to_speech\nfrom services.llm_service import SYSTEM_PROMPTS\nfrom services.amazigh_service import transcribe_amazigh\nprint\\('Langues LLM:', list\\(SYSTEM_PROMPTS.keys\\(\\)\\)\\)\nprint\\('All imports OK'\\)\n\")"
+    ]
+  }
+}

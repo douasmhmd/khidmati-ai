@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
-from typing import Optional
+from typing import Optional, List
 from services.llm_service import chat_with_mistral
 from services.demarche_engine import DemarcheEngine
 
@@ -8,11 +8,17 @@ router = APIRouter()
 engine = DemarcheEngine()
 
 
+class HistoryItem(BaseModel):
+    role: str
+    content: str
+
+
 class ChatRequest(BaseModel):
     message: str
     language: str = "darija"
     session_id: str
     user_profile: Optional[dict] = None
+    history: List[HistoryItem] = []
 
 
 class ChatResponse(BaseModel):
@@ -27,12 +33,16 @@ class ChatResponse(BaseModel):
 
 @router.post("/", response_model=ChatResponse)
 async def chat(request: ChatRequest):
-    """Endpoint principal de chat avec l'assistant Khidmati."""
+    """Endpoint principal de chat avec l'assistant Khidmati. Supporte l'historique complet."""
+    # Convertir l'historique Pydantic en liste de dicts pour le LLM service
+    external_history = [{"role": h.role, "content": h.content} for h in request.history]
+
     result = await chat_with_mistral(
         message=request.message,
         session_id=request.session_id,
         language=request.language,
         user_profile=request.user_profile,
+        external_history=external_history if external_history else None,
     )
     checklist = None
     if result.get("demarche_detected"):

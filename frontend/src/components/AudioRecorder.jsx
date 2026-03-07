@@ -107,10 +107,13 @@ function AudioRecorder({ onTranscription, language, fontSize }) {
   };
 
   const handleClick = () => {
+    if (status === STATES.PROCESSING) return;
+    if (status === STATES.RECORDING) {
+      stopRecording();
+      return;
+    }
     if (status === STATES.IDLE || status === STATES.DONE) {
       startRecording();
-    } else if (status === STATES.RECORDING) {
-      stopRecording();
     }
   };
 

@@ -1,59 +1,60 @@
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
+const API_BASE = process.env.REACT_APP_API_URL || 'http://localhost:8000';
 
 /**
- * Envoie un message au chatbot et retourne la réponse.
+ * Envoie un message avec l'historique complet au chatbot.
+ * payload: { text, history: [{role, content}], lang, session_id }
  */
-export const sendMessage = async (message, language, sessionId) => {
+export const sendMessage = async (text, history, lang, sessionId) => {
   try {
-    const response = await fetch(`${API_URL}/chat/`, {
+    const response = await fetch(`${API_BASE}/api/chat`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        message,
-        language,
-        session_id: sessionId,
-        user_profile: { accessibility: true },
-      }),
+      body: JSON.stringify({ text, history, lang, session_id: sessionId }),
     });
-    return await response.json();
+    const data = await response.json();
+    if (!response.ok) throw new Error(data?.detail || 'Erreur API');
+    return data;
   } catch (error) {
-    return { error: 'ماكاينش الانترنيت، حاول من جديد' };
+    return { error: 'ماكاينش الانترنيت أو البيرون ما خدامش. حاول من جديد.' };
   }
 };
 
 /**
- * Transcrit un enregistrement audio en texte.
+ * Transcrit un enregistrement audio (webm/ogg).
+ * lang: 'darija' (Whisper) | 'amazigh' (Odyssey)
  */
-export const transcribeAudio = async (audioBlob, language = 'auto') => {
+export const transcribeAudio = async (audioBlob, lang = 'darija') => {
   try {
     const formData = new FormData();
-    formData.append('audio', audioBlob, 'recording.webm');
-    formData.append('language', language);
-    const response = await fetch(`${API_URL}/audio/transcribe`, {
+    formData.append('file', audioBlob, 'voice.webm');
+    const response = await fetch(`${API_BASE}/api/audio/process?lang=${lang}`, {
       method: 'POST',
       body: formData,
     });
-    return await response.json();
+    const data = await response.json();
+    if (!response.ok) throw new Error(data?.detail || 'Erreur audio');
+    return data;
   } catch (error) {
-    return { error: 'مشكل في التسجيل' };
+    return { error: 'مشكل في معالجة التسجيل' };
   }
 };
 
 /**
- * Envoie une image de document pour extraction OCR.
+ * Scanne une image de CIN et extrait nom, prenom, cin.
  */
-export const uploadDocument = async (imageFile, hint = 'auto') => {
+export const scanCin = async (imageFile) => {
   try {
     const formData = new FormData();
-    formData.append('image', imageFile);
-    formData.append('document_hint', hint);
-    const response = await fetch(`${API_URL}/document/`, {
+    formData.append('file', imageFile);
+    const response = await fetch(`${API_BASE}/api/document/scan-cin`, {
       method: 'POST',
       body: formData,
     });
-    return await response.json();
+    const data = await response.json();
+    if (!response.ok) throw new Error(data?.detail || 'Erreur scan');
+    return data;
   } catch (error) {
-    return { error: 'مشكل في الصورة' };
+    return { error: 'مشكل في تحليل الوثيقة' };
   }
 };
 
@@ -62,7 +63,7 @@ export const uploadDocument = async (imageFile, hint = 'auto') => {
  */
 export const getDemarches = async () => {
   try {
-    const response = await fetch(`${API_URL}/demarches/`);
+    const response = await fetch(`${API_BASE}/demarches/`);
     return await response.json();
   } catch (error) {
     return { error: 'مشكل في التحميل' };
