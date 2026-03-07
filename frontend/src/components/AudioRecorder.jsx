@@ -118,10 +118,10 @@ function AudioRecorder({ onTranscription, language, fontSize }) {
   };
 
   const getBgColor = () => {
-    if (status === STATES.RECORDING) return '#DC2626';
-    if (status === STATES.PROCESSING) return '#F59E0B';
-    if (status === STATES.DONE) return '#10B981';
-    return '#DC2626';
+    if (status === STATES.RECORDING) return '#C1272D';
+    if (status === STATES.PROCESSING) return '#C8A951';
+    if (status === STATES.DONE) return '#006233';
+    return '#C1272D';
   };
 
   const getLabel = () => {
@@ -136,8 +136,8 @@ function AudioRecorder({ onTranscription, language, fontSize }) {
       <button
         onClick={handleClick}
         disabled={status === STATES.PROCESSING}
-        className={`w-12 h-12 rounded-full flex items-center justify-center text-white font-bold shadow-md disabled:opacity-60 ${
-          status === STATES.RECORDING ? 'animate-pulse' : ''
+        className={`w-12 h-12 rounded-full flex items-center justify-center text-white font-bold shadow-md disabled:opacity-60 transition-all duration-200 ${
+          status === STATES.RECORDING ? 'animate-pulse-moroccan' : ''
         }`}
         style={{ backgroundColor: getBgColor(), minWidth: 48, minHeight: 48, fontSize }}
         aria-label={status === STATES.RECORDING ? 'أوقف التسجيل' : 'ابدأ التسجيل'}

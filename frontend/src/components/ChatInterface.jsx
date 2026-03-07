@@ -9,19 +9,19 @@ import ChecklistView from './ChecklistView';
 const WELCOME_MESSAGE = {
   id: 'welcome',
   role: 'assistant',
-  text: 'مرحبا! أنا خدمتي 🤖\nBienvenue ! Je suis Khidmati AI.\nواش خاصك تجدد البطاقة، شهادة الميلاد، راميد، أو تصحيح الإمضاء؟',
+  text: 'ⴰⵣⵓⵍ! ⵏⴽⴽ ⴷ ⵅⴷⵎⵜⵉ ★\nمرحبا! أنا خدمتي AI\nBienvenue ! Je suis Khidmati AI.\nواش خاصك تجدد البطاقة، شهادة الميلاد، راميد، أو تصحيح الإمضاء؟',
   timestamp: new Date(),
 };
 
 function ChatInterface() {
-  const [messages, setMessages] = useState([WELCOME_MESSAGE]);
-  const [inputText, setInputText] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [sessionId] = useState(() => `session_${Date.now()}`);
-  const [language, setLanguage] = useState('darija');
-  const [fontSize, setFontSize] = useState(18);
+  const [messages, setMessages]     = useState([WELCOME_MESSAGE]);
+  const [inputText, setInputText]   = useState('');
+  const [isLoading, setIsLoading]   = useState(false);
+  const [sessionId]                 = useState(() => `session_${Date.now()}`);
+  const [language, setLanguage]     = useState('darija');
+  const [fontSize, setFontSize]     = useState(18);
   const [highContrast, setHighContrast] = useState(false);
-  const [checklist, setChecklist] = useState(null);
+  const [checklist, setChecklist]   = useState(null);
 
   const messagesEndRef = useRef(null);
 
@@ -100,13 +100,26 @@ function ChatInterface() {
     window.speechSynthesis.speak(utterance);
   };
 
-  const bgClass = highContrast ? 'bg-black text-white' : 'bg-gray-100';
-  const bubbleAssistant = highContrast
-    ? 'bg-gray-800 text-white'
-    : 'bg-white text-gray-800';
-  const bubbleUser = highContrast
-    ? 'bg-green-900 text-white'
-    : 'bg-green-100 text-gray-800';
+  /* ── Styles based on contrast mode ── */
+  const bgClass = highContrast
+    ? 'bg-black text-white high-contrast'
+    : 'bg-amazigh-pattern text-gray-800';
+
+  const bubbleAssistantStyle = highContrast
+    ? { backgroundColor: '#1a1a1a', color: '#fff', borderLeft: '4px solid #C8A951' }
+    : { backgroundColor: '#FDF8EE', color: '#1a1a1a', borderLeft: '4px solid #006233', boxShadow: '0 2px 8px rgba(0,98,51,0.1)' };
+
+  const bubbleUserStyle = highContrast
+    ? { backgroundColor: '#004D2B', color: '#fff' }
+    : { backgroundColor: '#006233', color: '#fff', boxShadow: '0 2px 8px rgba(0,98,51,0.25)' };
+
+  const inputBarStyle = highContrast
+    ? { backgroundColor: '#111', borderTop: '1px solid #333' }
+    : { backgroundColor: '#fff', borderTop: '2px solid #C8A951' };
+
+  const inputStyle = highContrast
+    ? { backgroundColor: '#222', border: '1px solid #555', color: '#fff' }
+    : { backgroundColor: '#f9f5eb', border: '1px solid #C8A951', color: '#1a1a1a', transition: 'box-shadow 0.2s, border-color 0.2s' };
 
   return (
     <div className={`flex flex-col h-screen ${bgClass}`} style={{ fontSize }}>
@@ -125,19 +138,32 @@ function ChatInterface() {
         {messages.map((msg) => (
           <div
             key={msg.id}
-            className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
+            className={`flex animate-slide-in ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
           >
+            {/* Assistant icon */}
+            {msg.role === 'assistant' && (
+              <span
+                className="self-end mb-1 mr-1 text-lg select-none"
+                style={{ color: '#C8A951', minWidth: 24, textAlign: 'center' }}
+                aria-hidden="true"
+              >
+                ★
+              </span>
+            )}
+
             <div
-              className={`max-w-xs md:max-w-md lg:max-w-lg rounded-2xl px-4 py-3 shadow-sm ${
-                msg.role === 'user' ? bubbleUser : bubbleAssistant
-              }`}
+              className="max-w-xs md:max-w-md lg:max-w-lg rounded-2xl px-4 py-3"
+              style={msg.role === 'user' ? bubbleUserStyle : bubbleAssistantStyle}
               dir={language === 'fr' ? 'ltr' : 'rtl'}
             >
               <p className="whitespace-pre-wrap break-words">{msg.text}</p>
               {msg.role === 'assistant' && (
                 <button
                   onClick={() => speak(msg.text)}
-                  className="mt-1 text-xs opacity-60 hover:opacity-100"
+                  className="mt-1 text-xs transition-opacity duration-200"
+                  style={{ opacity: 0.6 }}
+                  onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')}
+                  onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.6')}
                   aria-label="Lire le message"
                   title="Lire"
                 >
@@ -151,11 +177,12 @@ function ChatInterface() {
         {/* Indicateur de chargement */}
         {isLoading && (
           <div className="flex justify-start">
-            <div className={`rounded-2xl px-4 py-3 shadow-sm ${bubbleAssistant}`}>
+            <span className="self-end mb-1 mr-1 text-lg" style={{ color: '#C8A951', minWidth: 24, textAlign: 'center' }} aria-hidden="true">★</span>
+            <div className="rounded-2xl px-4 py-3" style={bubbleAssistantStyle}>
               <div className="flex space-x-1">
-                <span className="w-2 h-2 rounded-full bg-gray-400 animate-bounce" style={{ animationDelay: '0ms' }} />
-                <span className="w-2 h-2 rounded-full bg-gray-400 animate-bounce" style={{ animationDelay: '150ms' }} />
-                <span className="w-2 h-2 rounded-full bg-gray-400 animate-bounce" style={{ animationDelay: '300ms' }} />
+                <span className="w-2 h-2 rounded-full animate-bounce" style={{ backgroundColor: '#006233', animationDelay: '0ms'   }} />
+                <span className="w-2 h-2 rounded-full animate-bounce" style={{ backgroundColor: '#006233', animationDelay: '150ms' }} />
+                <span className="w-2 h-2 rounded-full animate-bounce" style={{ backgroundColor: '#006233', animationDelay: '300ms' }} />
               </div>
             </div>
           </div>
@@ -176,11 +203,7 @@ function ChatInterface() {
       )}
 
       {/* Barre de saisie */}
-      <div
-        className={`px-3 py-3 border-t ${
-          highContrast ? 'bg-gray-900 border-gray-700' : 'bg-white border-gray-200'
-        }`}
-      >
+      <div className="px-3 py-3" style={inputBarStyle}>
         <div className="flex items-center gap-2">
           {/* Upload document */}
           <DocumentUpload
@@ -211,20 +234,18 @@ function ChatInterface() {
             onKeyDown={handleKeyDown}
             placeholder={language === 'fr' ? 'Écrivez votre message…' : 'كتب هنا…'}
             dir={language === 'fr' ? 'ltr' : 'rtl'}
-            className={`flex-1 rounded-full px-4 py-3 border outline-none text-base min-w-0 ${
-              highContrast
-                ? 'bg-gray-800 border-gray-600 text-white placeholder-gray-400'
-                : 'bg-gray-100 border-gray-300 text-gray-800 placeholder-gray-500'
-            }`}
-            style={{ fontSize }}
+            className="flex-1 rounded-full px-4 py-3 text-base min-w-0 input-moroccan"
+            style={{ ...inputStyle, fontSize }}
           />
 
           {/* Bouton envoi */}
           <button
             onClick={() => handleSend()}
             disabled={isLoading || !inputText.trim()}
-            className="w-12 h-12 rounded-full flex items-center justify-center text-white disabled:opacity-40"
-            style={{ backgroundColor: '#0A6E5C', minWidth: 48 }}
+            className="w-12 h-12 rounded-full flex items-center justify-center text-white disabled:opacity-40 transition-all duration-200"
+            style={{ backgroundColor: '#006233', minWidth: 48, boxShadow: '0 2px 8px rgba(0,98,51,0.35)' }}
+            onMouseEnter={(e) => !e.currentTarget.disabled && (e.currentTarget.style.backgroundColor = '#004D2B')}
+            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#006233')}
             aria-label="Envoyer"
           >
             ➤
