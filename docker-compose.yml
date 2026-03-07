@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+  backend:
+    build: ./backend
+    ports: ["8000:8000"]
+    environment:
+      - MISTRAL_API_KEY=${MISTRAL_API_KEY:-}
+      - OLLAMA_URL=http://ollama:11434
+      - DATABASE_URL=sqlite:///./khidmati.db
+      - WHISPER_MODEL=${WHISPER_MODEL:-small}
+    volumes:
+      - whisper_cache:/root/.cache/whisper
+    depends_on: [ollama]
+  frontend:
+    build: ./frontend
+    ports: ["3000:3000"]
+    environment:
+      - REACT_APP_API_URL=http://localhost:8000
+    depends_on: [backend]
+  ollama:
+    image: ollama/ollama
+    ports: ["11434:11434"]
+    volumes:
+      - ollama_models:/root/.ollama
+    entrypoint: ["/bin/sh", "-c", "ollama serve & sleep 5 && ollama pull mistral:7b-instruct && wait"]
+volumes:
+  whisper_cache:
+  ollama_models:

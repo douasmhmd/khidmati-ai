@@ -1,0 +1,259 @@
+{
+  "demarches": [
+    {
+      "id": "renouvellement_cin",
+      "nom": {
+        "fr": "Renouvellement de la Carte d'Identité Nationale",
+        "ar": "تجديد بطاقة التعريف الوطنية",
+        "darija": "تجديد سيبيه"
+      },
+      "description_simple": {
+        "fr": "Renouveler votre carte d'identité nationale (CIN) expirée ou perdue.",
+        "darija": "تجدد البطاقة الوطنية ديالك إلا سالت أو خسرتيها."
+      },
+      "questions_collecte": [
+        {
+          "id": "motif",
+          "question": {
+            "darija": "واش البطاقة ديالك سالت ولا خسرتيها؟",
+            "ar": "هل انتهت صلاحية بطاقتك أم فقدتها؟",
+            "fr": "Votre carte est-elle expirée ou perdue ?"
+          },
+          "type": "choice",
+          "options": ["سالت / Expirée", "خسرت / Perdue", "تلفت / Abîmée"],
+          "required": true
+        },
+        {
+          "id": "lieu",
+          "question": {
+            "darija": "فين ساكن دابا؟ (المدينة)",
+            "ar": "أين تسكن الآن؟ (المدينة)",
+            "fr": "Où habitez-vous ? (ville)"
+          },
+          "type": "text",
+          "required": true
+        }
+      ],
+      "documents_requis": {
+        "de_base": [
+          "البطاقة الوطنية القديمة / Ancienne CIN",
+          "صورة شخصية حديثة / Photo récente",
+          "فاتورة الضوء أو الماء / Quittance eau ou électricité"
+        ],
+        "selon_motif": {
+          "خسرت": [
+            "تصريح بالضياع من الشرطة / Déclaration de perte"
+          ]
+        }
+      },
+      "guichets_rabat": [
+        {
+          "nom": "Arrondissement Hassan",
+          "adresse": "Avenue Moulay Youssef, Rabat",
+          "horaires": "Lun-Ven 8h30-16h30",
+          "telephone": "0537-72-00-00"
+        },
+        {
+          "nom": "Arrondissement Youssoufia",
+          "adresse": "Avenue Al Yassamine, Rabat",
+          "horaires": "Lun-Ven 8h30-16h30",
+          "telephone": "0537-65-00-00"
+        },
+        {
+          "nom": "Arrondissement Médina",
+          "adresse": "Rue Souika, Rabat",
+          "horaires": "Lun-Ven 8h30-16h30",
+          "telephone": "0537-72-10-00"
+        },
+        {
+          "nom": "Arrondissement Agdal",
+          "adresse": "Avenue de France, Rabat",
+          "horaires": "Lun-Ven 8h30-16h30",
+          "telephone": "0537-67-00-00"
+        }
+      ],
+      "delai_traitement": "5 à 15 jours ouvrables",
+      "cout": "75 DH",
+      "etapes": [
+        "Rassembler les documents",
+        "Se rendre à l'arrondissement le plus proche",
+        "Déposer le dossier au guichet CIN",
+        "Récupérer le reçu",
+        "Revenir chercher la carte dans 5-15 jours"
+      ]
+    },
+    {
+      "id": "acte_naissance",
+      "nom": {
+        "fr": "Acte de Naissance",
+        "ar": "شهادة الميلاد",
+        "darija": "شهادة الميلاد"
+      },
+      "description_simple": {
+        "fr": "Obtenir un extrait ou une copie de votre acte de naissance.",
+        "darija": "تاخد نسخة من شهادة الميلاد ديالك."
+      },
+      "questions_collecte": [
+        {
+          "id": "lieu_naissance",
+          "question": {
+            "darija": "فين تولدت؟ (البلدية)",
+            "ar": "أين وُلدت؟ (البلدية)",
+            "fr": "Dans quelle commune êtes-vous né(e) ?"
+          },
+          "type": "text",
+          "required": true
+        }
+      ],
+      "documents_requis": {
+        "de_base": [
+          "البطاقة الوطنية / CIN",
+          "طلب خطي أو شفهي / Demande écrite ou orale"
+        ],
+        "selon_motif": {}
+      },
+      "guichets_rabat": [
+        {
+          "nom": "Arrondissement Hassan",
+          "adresse": "Avenue Moulay Youssef, Rabat",
+          "horaires": "Lun-Ven 8h30-16h30",
+          "telephone": "0537-72-00-00"
+        },
+        {
+          "nom": "Arrondissement Youssoufia",
+          "adresse": "Avenue Al Yassamine, Rabat",
+          "horaires": "Lun-Ven 8h30-16h30",
+          "telephone": "0537-65-00-00"
+        }
+      ],
+      "delai_traitement": "Même jour (quelques minutes)",
+      "cout": "Gratuit",
+      "etapes": [
+        "Apporter votre CIN",
+        "Se rendre à l'arrondissement de naissance ou de résidence",
+        "Demander un extrait d'acte de naissance",
+        "Récupérer le document immédiatement"
+      ]
+    },
+    {
+      "id": "inscription_ramed",
+      "nom": {
+        "fr": "Inscription au RAMED",
+        "ar": "التسجيل في راميد",
+        "darija": "التسجيل في راميد"
+      },
+      "description_simple": {
+        "fr": "S'inscrire au Régime d'Assistance Médicale (RAMED) pour bénéficier de soins gratuits.",
+        "darija": "تسجل في راميد باش تاخد العلاج بالمجان."
+      },
+      "questions_collecte": [
+        {
+          "id": "nombre_personnes",
+          "question": {
+            "darija": "كم شخص فدارك؟",
+            "ar": "كم عدد أفراد أسرتك؟",
+            "fr": "Combien de personnes dans votre foyer ?"
+          },
+          "type": "number",
+          "required": true
+        },
+        {
+          "id": "commune",
+          "question": {
+            "darija": "فين ساكن؟ (الحي والمدينة)",
+            "ar": "أين تسكن؟ (الحي والمدينة)",
+            "fr": "Où habitez-vous ? (quartier et ville)"
+          },
+          "type": "text",
+          "required": true
+        }
+      ],
+      "documents_requis": {
+        "de_base": [
+          "بطائق وطنية لجميع أفراد الأسرة / CIN de tous les membres",
+          "شهادة عدم الدخل / Attestation de non-revenus",
+          "فاتورة الماء أو الضوء / Quittance eau ou électricité",
+          "عقود ازدياد الأطفال / Actes de naissance des enfants"
+        ],
+        "selon_motif": {}
+      },
+      "guichets_rabat": [
+        {
+          "nom": "Délégation du Ministère de la Santé",
+          "adresse": "Avenue Ibn Sina, Agdal, Rabat",
+          "horaires": "Lun-Ven 8h30-16h30",
+          "telephone": "0537-77-72-72"
+        },
+        {
+          "nom": "Centre de Santé de Quartier",
+          "adresse": "Selon votre commune de résidence",
+          "horaires": "Lun-Ven 8h30-15h30",
+          "telephone": ""
+        }
+      ],
+      "delai_traitement": "2 à 4 semaines",
+      "cout": "Gratuit",
+      "etapes": [
+        "Constituer le dossier complet",
+        "Se rendre à la délégation de santé ou au centre de santé",
+        "Déposer le dossier",
+        "Attendre la validation (2-4 semaines)",
+        "Récupérer la carte RAMED"
+      ]
+    },
+    {
+      "id": "legalisation",
+      "nom": {
+        "fr": "Légalisation de signature",
+        "ar": "تصحيح الإمضاء",
+        "darija": "تصحيح الإمضاء"
+      },
+      "description_simple": {
+        "fr": "Faire certifier votre signature sur un document officiel.",
+        "darija": "تصحح الإمضاء ديالك فالمكتب."
+      },
+      "questions_collecte": [
+        {
+          "id": "type_document",
+          "question": {
+            "darija": "أش من وثيقة خاصك تصحح فيها الإمضاء؟",
+            "ar": "ما هي الوثيقة التي تحتاج توثيقها؟",
+            "fr": "Sur quel document souhaitez-vous légaliser votre signature ?"
+          },
+          "type": "text",
+          "required": true
+        }
+      ],
+      "documents_requis": {
+        "de_base": [
+          "البطاقة الوطنية / CIN",
+          "الوثيقة المراد تصحيح الإمضاء فيها / Document à légaliser"
+        ],
+        "selon_motif": {}
+      },
+      "guichets_rabat": [
+        {
+          "nom": "Arrondissement Hassan",
+          "adresse": "Avenue Moulay Youssef, Rabat",
+          "horaires": "Lun-Ven 8h30-16h30",
+          "telephone": "0537-72-00-00"
+        },
+        {
+          "nom": "Arrondissement Agdal",
+          "adresse": "Avenue de France, Rabat",
+          "horaires": "Lun-Ven 8h30-16h30",
+          "telephone": "0537-67-00-00"
+        }
+      ],
+      "delai_traitement": "Même jour (immédiat)",
+      "cout": "15 DH",
+      "etapes": [
+        "Apporter la CIN + le document",
+        "Se rendre à n'importe quel arrondissement",
+        "Passer au guichet légalisation",
+        "Signer devant l'agent",
+        "Recevoir le document légalisé immédiatement"
+      ]
+    }
+  ]
+}
