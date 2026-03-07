@@ -69,9 +69,9 @@ function DocumentUpload({ onExtracted }) {
       />
       <label
         htmlFor="doc-upload"
-        className="cursor-pointer flex items-center justify-center rounded-full text-white shadow-md"
+        className="cursor-pointer flex items-center justify-center rounded-full text-white shadow-md transition-all duration-200"
         style={{
-          backgroundColor: loading ? '#6B7280' : '#2563EB',
+          backgroundColor: loading ? '#6B7280' : '#C8A951',
           width: 48,
           height: 48,
           minWidth: 48,

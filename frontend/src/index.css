@@ -2,10 +2,85 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ── Moroccan colour palette ── */
 :root {
   --font-size-base: 18px;
+
+  /* Official colours */
+  --morocco-green:       #006233;
+  --morocco-green-dark:  #004D2B;
+  --morocco-red:         #C1272D;
+  --morocco-gold:        #C8A951;
+  --morocco-gold-light:  #E8D08A;
+  --morocco-cream:       #FDF8EE;
+  --morocco-white:       #FFFFFF;
+
+  /* Semantic tokens */
+  --color-header-from:   var(--morocco-green);
+  --color-header-to:     var(--morocco-green-dark);
+  --color-header-border: var(--morocco-gold);
+  --color-send-btn:      var(--morocco-green);
+  --color-mic-btn:       var(--morocco-red);
 }
 
 body {
   font-size: var(--font-size-base);
+  font-family: 'Noto Sans Arabic', 'Segoe UI', sans-serif;
+}
+
+/* Tifinagh text */
+.font-tifinagh {
+  font-family: 'Noto Sans Tifinagh', sans-serif;
+}
+
+/* ── Animations ── */
+@keyframes slideInUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes pulseMoroccan {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(193, 39, 45, 0.5); }
+  50%       { box-shadow: 0 0 0 8px rgba(193, 39, 45, 0);  }
+}
+
+.animate-slide-in {
+  animation: slideInUp 0.3s ease-out both;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s ease-out both;
+}
+
+.animate-pulse-moroccan {
+  animation: pulseMoroccan 1.5s ease-in-out infinite;
+}
+
+/* ── Amazigh geometric background pattern ── */
+.bg-amazigh-pattern {
+  background-color: #F0F7F4;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cg fill='none' stroke='%23006233' stroke-width='0.4' opacity='0.12'%3E%3Cpolygon points='30,5 55,20 55,40 30,55 5,40 5,20'/%3E%3Cpolygon points='30,15 45,23 45,37 30,45 15,37 15,23'/%3E%3Cline x1='30' y1='5'  x2='30' y2='15'/%3E%3Cline x1='55' y1='20' x2='45' y2='23'/%3E%3Cline x1='55' y1='40' x2='45' y2='37'/%3E%3Cline x1='30' y1='55' x2='30' y2='45'/%3E%3Cline x1='5'  y1='40' x2='15' y2='37'/%3E%3Cline x1='5'  y1='20' x2='15' y2='23'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* ── Chat bubble animations ── */
+.chat-bubble {
+  animation: slideInUp 0.25s ease-out both;
+}
+
+/* ── Input focus gold border ── */
+.input-moroccan:focus {
+  outline: none;
+  border-color: var(--morocco-gold) !important;
+  box-shadow: 0 0 0 3px rgba(200, 169, 81, 0.2);
+}
+
+/* ── High contrast overrides ── */
+.high-contrast .bg-amazigh-pattern {
+  background-color: #000;
+  background-image: none;
 }
